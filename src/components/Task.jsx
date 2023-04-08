@@ -5,7 +5,9 @@ import {useState} from "react";
 export function Task(props){
     const { onClickModifyTask,onClickDeleteTask } = props;
     const [name,setName] = useState(props.name)
+    const firstName = props.name;
     const [showInputText, setShowInputText] = useState(false)
+    const [isCompleted, setIsCompleted] = useState(false);
     const handleClickModifyTask = () =>{
         setShowInputText(true)
     }
@@ -19,18 +21,25 @@ export function Task(props){
     }
 
     const handleSaveModifyTask = () => {
-        onClickDeleteTask(name)
-        onClickModifyTask(name)
+        onClickModifyTask(name,firstName)
         setShowInputText(false)
     }
+    const handleCheckboxChange = () => {
+        setIsCompleted(!isCompleted);
+    };
 
     return(
-        <li>
-            <p hidden={showInputText}>{name}</p>
+        <div style={{ display: "flex", alignItems: "center"}}>
+            <input
+                type="checkbox"
+                checked={isCompleted}
+                onChange={handleCheckboxChange}
+            />
+            <p hidden={showInputText} style={{ margin: "10px", textDecoration: isCompleted ? "line-through" : "none" }}>{name}</p>
             <input type="text" value={name} onChange={handleTaskChange} hidden={!showInputText}/>
             <button onClick={handleSaveModifyTask} hidden={!showInputText}>Save Modify Task</button>
-            <button onClick={handleClickModifyTask}>Modify Task</button>
-            <button onClick={handleClickDeleteTask}>Delete Task</button>
-        </li>
+            <button onClick={handleClickModifyTask} hidden={showInputText}>Modify Task</button>
+            <button onClick={handleClickDeleteTask} hidden={showInputText}>Delete Task</button>
+        </div>
     )
 }
