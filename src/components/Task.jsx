@@ -1,5 +1,3 @@
-//Este componente mostrará el nombre, y un indicador del estado de cada tarea. (ej: checkbox, iconos, tachado...)
-
 import {useState} from "react";
 
 export function Task(props){

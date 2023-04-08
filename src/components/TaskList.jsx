@@ -1,6 +1,6 @@
-//En este componente debe visualizarse la lista completa de tareas.
 import {Task} from "./Task.jsx";
 import {useState,useEffect} from "react";
+import useTaskList from "../hooks/useTaskList.jsx";
 
 export const TaskList = () => {
     const [list, setList] = useState(JSON.parse(localStorage.getItem("tasks")));
@@ -10,30 +10,11 @@ export const TaskList = () => {
         localStorage.setItem("tasks",JSON.stringify(list))
     }, [list])
 
-    const handleClickToAddTask = () => {
-        if (!list.find(task => task.name === newTask)){
-            setList([...list, {name:newTask,complete:false}])
-        }
-    }
-
     const handleChange = (event) => {
         setNewTask(event.target.value);
     }
 
-    const handleDeleteTask = (taskName) => {
-        setList(list.filter((obj) => obj.name !== taskName));
-    };
-
-    const handleModifyTask = (modifiedName,originalName) => {
-        const newList = list.map((obj) => {
-            if (obj.name === originalName) {
-                return { ...obj, name: modifiedName};
-            } else {
-                return obj;
-            }
-        });
-        setList(newList)
-    }
+    const { handleAddTask, handleDeleteTask, handleModifyTask } = useTaskList(list,setList,newTask);
 
     const handleCompleteTask = (completedTaskName,isCompleted) => {
         const newList = list.map((obj) => {
@@ -45,11 +26,11 @@ export const TaskList = () => {
         });
         setList(newList)
     }
-
+    console.log(list)
     return (
         <>
             <input type="text" value={newTask} onChange={handleChange}/>
-            <button onClick={handleClickToAddTask}>Save Task</button>
+            <button onClick={handleAddTask}>Save Task</button>
             <ul>
                 {list.map((task) => (
                     <li key={task.name}>
