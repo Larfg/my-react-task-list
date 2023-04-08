@@ -3,11 +3,11 @@
 import {useState} from "react";
 
 export function Task(props){
-    const { onClickModifyTask,onClickDeleteTask } = props;
+    const { onClickModifyTask,onClickDeleteTask,onClickCompleteTask } = props;
     const [name,setName] = useState(props.name)
     const firstName = props.name;
     const [showInputText, setShowInputText] = useState(false)
-    const [isCompleted, setIsCompleted] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(props.complete);
     const handleClickModifyTask = () =>{
         setShowInputText(true)
     }
@@ -26,6 +26,7 @@ export function Task(props){
     }
     const handleCheckboxChange = () => {
         setIsCompleted(!isCompleted);
+        onClickCompleteTask(name,!isCompleted);
     };
 
     return(
