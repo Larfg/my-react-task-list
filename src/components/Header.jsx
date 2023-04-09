@@ -1,5 +1,7 @@
+import {Text} from "@chakra-ui/react";
+
 export function Header() {
     return (
-        <h1>Todo App</h1>
+        <Text fontSize="34px" >Todo App</Text>
     );
 }

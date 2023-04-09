@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Button, Checkbox, Text} from "@chakra-ui/react";
 
 export function Task(props){
     const { onClickModifyTask,onClickDeleteTask,onClickCompleteTask } = props;
@@ -29,16 +30,23 @@ export function Task(props){
 
     return(
         <div style={{ display: "flex", alignItems: "center"}}>
-            <input
-                type="checkbox"
-                checked={isCompleted}
-                onChange={handleCheckboxChange}
-            />
-            <p hidden={showInputText} style={{ margin: "10px", textDecoration: isCompleted ? "line-through" : "none" }}>{name}</p>
-            <input type="text" value={name} onChange={handleTaskChange} hidden={!showInputText}/>
-            <button onClick={handleSaveModifyTask} hidden={!showInputText}>Save Modify Task</button>
-            <button onClick={handleClickModifyTask} hidden={showInputText}>Modify Task</button>
-            <button onClick={handleClickDeleteTask} hidden={showInputText}>Delete Task</button>
+            <Checkbox isChecked={isCompleted} onChange={handleCheckboxChange}/>
+            <Text
+                display={showInputText ? "none" : "block"}
+                margin="10px"
+                textDecoration={isCompleted ? "line-through" : "none"}
+            >
+                {name}
+            </Text>            <input type="text" value={name} onChange={handleTaskChange} hidden={!showInputText}/>
+            <Button onClick={handleSaveModifyTask} display={showInputText ? "block" : "none"} fontWeight="bold" textDecoration="none" size="sm" colorScheme='green' variant='outline'>
+                Save Modify Task
+            </Button>
+            <Button onClick={handleClickModifyTask} display={showInputText ? "none" : "block"} fontWeight="bold" textDecoration="none" size="sm" colorScheme='green' variant='outline'>
+                Modify Task
+            </Button>
+            <Button onClick={handleClickDeleteTask} display={showInputText ? "none" : "block"} fontWeight="bold" textDecoration="none" size="sm" colorScheme='green' variant='outline'>
+                Delete Task
+            </Button>
         </div>
     )
 }
