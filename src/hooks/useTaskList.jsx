@@ -1,8 +1,8 @@
-function useTaskList(list, setList, newTask) {
+function useTaskList(list, setList) {
 
-    const handleAddTask = () => {
+    const handleAddTask = (newTask,TaskDesc) => {
         if (!list.find(task => task.name === newTask)){
-            setList([...list, {name:newTask,complete:false}])
+            setList([...list, {name:newTask,complete:false,description:TaskDesc}])
         }
     };
 
