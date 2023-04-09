@@ -1,6 +1,6 @@
 import {Task} from "./Task.jsx";
 import {useState,useEffect} from "react";
-import useTaskList from "../hooks/useTaskList.jsx";
+import useTaskList from "../hooks/UseTaskList.jsx";
 import {useForm} from "react-hook-form";
 
 export const TaskList = () => {
